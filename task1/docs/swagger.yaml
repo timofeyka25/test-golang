@@ -1,0 +1,96 @@
+basePath: /
+definitions:
+  testGolang.Film:
+    properties:
+      releaseDate:
+        format: date-time
+        type: string
+      title:
+        type: string
+    required:
+    - releaseDate
+    - title
+    type: object
+host: localhost:28000
+info:
+  contact: {}
+  description: Films endpoints
+  title: Test task
+  version: "1.0"
+paths:
+  /film:
+    get:
+      description: Get all films
+      parameters:
+      - description: sort order
+        enum:
+        - releaseDate
+        - -releaseDate
+        in: query
+        name: sort
+        type: string
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get Films
+      tags:
+      - film
+    post:
+      consumes:
+      - application/json
+      description: Add new film
+      parameters:
+      - description: Film
+        in: body
+        name: input
+        required: true
+        schema:
+          $ref: '#/definitions/testGolang.Film'
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: AddFilm
+      tags:
+      - film
+  /film/{ID}:
+    get:
+      consumes:
+      - application/json
+      description: Get Film by ID
+      parameters:
+      - description: Film ID
+        in: path
+        name: ID
+        required: true
+        type: integer
+      produces:
+      - application/json
+      responses:
+        "200":
+          description: OK
+          schema:
+            type: string
+        "400":
+          description: Bad Request
+          schema:
+            type: string
+      summary: Get Film
+      tags:
+      - film
+swagger: "2.0"

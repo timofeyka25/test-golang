@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Test web sockets</title>
+</head>
+<body>
+<script>
+    let socket = new WebSocket("ws://localhost:28000/ws")
+    console.log("Attempting websocket connection")
+
+    socket.onopen = () => {
+        console.log("Successfully connected")
+        socket.send(JSON.stringify({event: "ping"}))
+    }
+
+    socket.onclose = (ev) => {
+        console.log("Socket closed connection", ev)
+    }
+
+    socket.onmessage = (message) => {
+        console.log(message)
+        console.log(JSON.parse(message.data))
+    }
+
+    socket.onerror = (error) => {
+        console.log("Socket error: ", error)
+    }
+</script>
+</body>
+</html>
